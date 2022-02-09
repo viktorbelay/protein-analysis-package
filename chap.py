@@ -8,20 +8,13 @@
 # Creation date: 02/06/2022
 
 # Purpose of script: Save CHAP data as numpy arrays and plot things in a pretty way :3
-# Also, can optionally get output.json (next version)
+# Also, gets output files
 
 # Version: 0.1.0
 
 # Funtionalty:
-    
-    # Inputs:
-        # Required: path to topology
-        # Required: path to trajectory
-        # Optional: plot (True or False). Will plot results with no input
-    # Outputs:
-        
-# Notes: Currently configured only for TMEM175
-# Future plans: Configure script to work with any channel
+
+# Future plans: 
 
 ############################################################
 ############################################################
@@ -45,7 +38,7 @@ def do_chap(topology,trajectory,output_path,solvent='15'):
     def dcd_to_xtc(topology, trajectory):
         
         dcd_traj = md.load(trajectory,top=topology)
-        dcd_traj.save_xtc(output_path+'/trajectory.xtc')
+        dcd_traj.save_xtc(output_path+'/equilibrated.xtc')
         
     host = 'hitegpu2'
     username = 'hiter'
@@ -95,6 +88,7 @@ def do_chap(topology,trajectory,output_path,solvent='15'):
         traj_path = output_path+'/'+'equilibrated.xtc'
         
         scp=SCPClient(ssh.get_transport())
+        scp.put(traj_path,remote_path='/home/hiter/belayv/vb_temp_chap_dir/.')
         scp.put(topology,remote_path="/home/hiter/belayv/vb_temp_chap_dir/.")
         scp.close()
         print('Trajectory and topology have been temporarily copied to hitegpu2.')
@@ -177,10 +171,10 @@ def get_pore_radius_profile(chap_dat,plot='True'):
     
     pass
 
-def get_min_pore_radius(chap_data,plot_hist=True,plot_time_series=True):
+def get_min_pore_radius(chap_data):
     dat=[]
     min_radius = np.array(chap_data['pathwayScalarTimeSeries']['minRadius'])*10 # Min pore (nm) radians * 10 = min pore radius in A 
-    t = np.array(chap_data['pathwayScalarTime Series']['t'])
+    t = np.array(chap_data['pathwayScalarTimeSeries']['t'])
     
     dat.append(t)
     dat.append(min_radius)
@@ -189,14 +183,17 @@ def get_min_pore_radius(chap_data,plot_hist=True,plot_time_series=True):
     
     return dat
 
-    if plot_hist == True:
+def plot_min_pore_radius(chap_data,hist=True,timeseries=True):
+    min_radius = np.array(chap_data['pathwayScalarTimeSeries']['minRadius'])*10 # Min pore (nm) radians * 10 = min pore radius in A 
+    t = np.array(chap_data['pathwayScalarTimeSeries']['t'])
+    if hist == True:
         
-        if plot_time_series==True:
+        if timeseries==True:
             
             pl.figure()
             
             mean,std=norm.fit(min_radius[min_radius>=0])
-            pl.hist(min_radius[min_radius>=0],bins=(len(min_radius)/4),alpha=0.9)
+            pl.hist(min_radius[min_radius>=0],bins=(int(len(min_radius)/4)),alpha=0.9)
             pl.xlabel('Minimum pore radius (A)')
             pl.ylabel('Frequency')
             pl.title('mean= '+str(mean)+' SD= '+str(std))
@@ -214,7 +211,7 @@ def get_min_pore_radius(chap_data,plot_hist=True,plot_time_series=True):
             pl.figure()
             
             mean,std=norm.fit(min_radius[min_radius>=0])
-            pl.hist(min_radius[min_radius>=0],bins=(len(min_radius)/4),alpha=0.9)
+            pl.hist(min_radius[min_radius>=0],bins=(int(len(min_radius)/4)),alpha=0.9)
             pl.xlabel('Minimum pore radius (A)')
             pl.ylabel('Frequency')
             pl.title('mean= '+str(mean)+' SD= '+str(std))
@@ -235,9 +232,16 @@ def get_min_pore_radius(chap_data,plot_hist=True,plot_time_series=True):
             
             pass
         
+
+def get_open_probability(chap_data,radius=1.33):
         
+        min_radius = np.array(chap_data['pathwayScalarTimeSeries']['minRadius'])*10
+
+        open_probability = (len(min_radius[min_radius>=radius]))/(len(min_radius))
+
+        return open_probability
         
-def get_pore_solvent_density(chap_data,plot=True):
+def get_pore_solvent_density(chap_data):
     
     dat = []
     z = np.array(chap_data['pathwayProfile']['s'])*10
@@ -247,11 +251,28 @@ def get_pore_solvent_density(chap_data,plot=True):
     dat.append(mean_solvent_density)
     
     dat = np.array(dat)
+
+    return dat
     
-    if plot==True:
-        
-        pl.figure()
-        pl.plot(z,mean_solvent_density)
+def plot_get_pore_solvent_desnity(chap_data):
+    
+    z = np.array(chap_data['pathwayProfile']['s'])*10
+    mean_solvent_density = np.array(chap_data['pathwayProfile']['densityMean'])
+    pl.figure()
+    pl.plot(z,mean_solvent_density,'k')
+    pl.vlines(3,0,100,'k',linestyles='--',alpha=0.4)
+    pl.vlines(-4,0,100,'k',linestyles='--',alpha=0.4)
+    pl.axvspan(s[500], s[580], alpha=0.3, color='orange')
+    pl.xlim(-4,6)
+    pl.ylim(0,100)
+
+    pl.xlabel('z (nm)')
+    pl.ylabel('Mean water density (nm^-3)')
+    pl.title('mean water density BB open clone00')
+
+
+
+    
     
     
     

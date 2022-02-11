@@ -150,7 +150,7 @@ def do_chap(topology,trajectory,output_path,solvent='15'):
         ############################################################
 
     ###
-    # Close SSH clinet
+    # Close SSH client
     ssh.close()
     print('SSH connection to '+username+'@'+host+' successfully closed.')
     
@@ -254,7 +254,7 @@ def get_pore_solvent_density(chap_data):
 
     return dat
     
-def plot_get_pore_solvent_desnity(chap_data):
+def plot_get_pore_solvent_density(chap_data):
     
     z = np.array(chap_data['pathwayProfile']['s'])*10
     mean_solvent_density = np.array(chap_data['pathwayProfile']['densityMean'])

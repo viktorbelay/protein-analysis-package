@@ -11,6 +11,10 @@ import paramiko
 from scp import SCPClient,SCPException
 import os
 import sys
+<<<<<<< HEAD
+=======
+import openmm as mm
+>>>>>>> 29a7ba72914c11d1f03d3e09f2d5429d0498fd7f
 
 
 def send_to_fah(lilac_out_dir,fah_in_dir):
@@ -26,6 +30,7 @@ def send_to_fah(lilac_out_dir,fah_in_dir):
                 md.load(i).remove_solvent().save_pdb(lilac_out_dir+'/nosolvent_equilibrated')
                 print('removed solvent from '+i)
                 
+<<<<<<< HEAD
             elif i.endswith('.cif'):
                 
                 os.chdir(lilac_out_dir)
@@ -36,6 +41,18 @@ def send_to_fah(lilac_out_dir,fah_in_dir):
                 md.load(i).remove_solvent().save_pdb(lilac_out_dir+'nosolvent_equiliberated.pdb')
                 
                 print('solvent stripped from cif.')
+=======
+            # elif i.endswith('.cif'):
+                
+            #     os.chdir(lilac_out_dir)
+                
+                
+            #     md.load(i).save_pdb(lilac_out_dir+'/equiliberated.pdb')
+                
+            #     md.load(i).remove_solvent().save_pdb(lilac_out_dir+'nosolvent_equiliberated.pdb')
+                
+            #     print('solvent stripped from cif.')
+>>>>>>> 29a7ba72914c11d1f03d3e09f2d5429d0498fd7f
                 
             else:
                 pass
@@ -76,4 +93,8 @@ def send_to_fah(lilac_out_dir,fah_in_dir):
     
 if __name__=='__main__':
     
+<<<<<<< HEAD
     send_to_fah(sys.argv[1],sys.argv[2])
+=======
+    send_to_fah(sys.argv[1],sys.argv[2])
+>>>>>>> 29a7ba72914c11d1f03d3e09f2d5429d0498fd7f

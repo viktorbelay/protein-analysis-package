@@ -53,7 +53,7 @@ def get_water_positions(topology,traj,plot=True):
     w_pos = []
     
     for ts in u.trajectory:
-        pos.append(w.positions)
+        w_pos.append(w.positions)
         
     w_pos = np.array(w_pos)
     
@@ -88,7 +88,7 @@ def get_water_positions(topology,traj,plot=True):
     
         for i in list(range(0,500)):
             #print(np.array([i]*len(zzzpos[i][(zzzpos[i]>30)&(zzzpos[i]<90)])))
-            pl.plot(np.array([i]*len(zzzpos_closed[i][(zzzpos_closed[i]>30)&(zzzpos_closed[i]<90)])),zzzpos_closed[i][(zzzpos_closed[i]>30)&(zzzpos_closed[i]<90)],'b.')
+            pl.plot(np.array([i]*len(z_w_pos[i][(z_w_pos[i]>30)&(z_w_pos[i]<90)])),z_w_pos[i][(z_w_pos[i]>30)&(z_w_pos[i]<90)],'b.')
             pl.ylim(52,58)
             pl.xlabel('time (ns)')
             pl.ylabel('water position (~55 = isoleucine constriction)')

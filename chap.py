@@ -256,19 +256,19 @@ def get_pore_solvent_density(chap_data):
     
 def plot_get_pore_solvent_density(chap_data):
     
-    z = np.array(chap_data['pathwayProfile']['s'])*10
+    z = np.array(chap_data['pathwayProfile']['s'])
     mean_solvent_density = np.array(chap_data['pathwayProfile']['densityMean'])
     pl.figure()
     pl.plot(z,mean_solvent_density,'k')
     pl.vlines(3,0,100,'k',linestyles='--',alpha=0.4)
     pl.vlines(-4,0,100,'k',linestyles='--',alpha=0.4)
-    pl.axvspan(s[500], s[580], alpha=0.3, color='orange')
-    pl.xlim(-4,6)
+    #pl.axvspan(z[500], z[580], alpha=0.3, color='orange')
+    pl.xlim(-5,5)
     pl.ylim(0,100)
 
     pl.xlabel('z (nm)')
     pl.ylabel('Mean water density (nm^-3)')
-    pl.title('mean water density BB open clone00')
+    
 
 
 

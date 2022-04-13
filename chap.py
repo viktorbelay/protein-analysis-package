@@ -169,7 +169,12 @@ def load_data(data):
         
 def get_pore_radius_profile(chap_dat,plot='True'):
     
-    pass
+    dat = []
+
+    pore_min_radius = np.array(chap_data['pathwayScalarTimeSeries']['minRadius'])
+    t = np.array(chap_data['pathwayScalarTimeSeries']['t'])
+
+    dat.append
 
 def get_min_pore_radius(chap_data):
     dat=[]

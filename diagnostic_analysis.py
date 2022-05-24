@@ -133,7 +133,7 @@ def diagnostic_analysis(topology_path,topology_name,trajectory_path,trajectory_n
     global universe
     
     load = md.load(trajectory_path+trajectory_name,top=topology_path+topology_name)
-    load.superpose(reference=load,frame=0,atom_indices='protein')
+    load.superpose(reference=load,frame=0,atom_indices=load.topology.select('protein'))
     universe = mda.Universe(topology_path+topology_name,trajectory_path+trajectory_name)
     
     rmsd_all_prot(topology_path,trajectory_path,topology_name,trajectory_name)
@@ -152,13 +152,13 @@ if __name__=='__main__':
     diagnostic_analysis(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])
     
     
-### Testing area ####
+# ## Testing area ####
 # topo_path='/Users/belayv/Downloads/'
 # topo_name='test7_zn.pdb'
 # traj_path='/Users/belayv/Downloads/'
 # traj_nam='test7_zn.dcd'
 
-# diagnostic_analysis(topo_path,topo_name,traj_path,traj_nam,True)
+# diagnostic_analysis(topo_path,topo_name,traj_path,traj_nam,False)
     
     
     

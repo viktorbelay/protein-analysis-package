@@ -13,8 +13,6 @@ from matplotlib import pyplot as pl
 import numpy as np
 import MDAnalysis as mda
 from MDAnalysis.analysis import pca
-import seaborn as sns
-import pandas as pd
 import sys
 
 
@@ -89,13 +87,13 @@ def calc_com_distances(load):
     
 
 
-    # com_chainA=md.compute_center_of_mass(load1,select='(residue 2176 or residue 2177 or residue 2178 or residue 2179 or residue 2180 or residue 2181) and chainid 0')
+    com_chainA=md.compute_center_of_mass(load,select='(residue 2176 or residue 2177 or residue 2178 or residue 2179 or residue 2180 or residue 2181) and chainid 0')
 
-    # com_chainB=md.compute_center_of_mass(load1,select='(residue 2580 or residue 2581 or residue 2582 or residue 2583 or residue 2584 or residue 2585 or residue 2586) and chainid 1')
+    com_chainB=md.compute_center_of_mass(load,select='(residue 2580 or residue 2581 or residue 2582 or residue 2583 or residue 2584 or residue 2585 or residue 2586) and chainid 1')
+    print('hi')
+   # com_chainA=md.compute_center_of_mass(load,select='chainid 0')
 
-    com_chainA=md.compute_center_of_mass(load,select='chainid 0')
-
-    com_chainB=md.compute_center_of_mass(load,select='chainid 1')
+   # com_chainB=md.compute_center_of_mass(load,select='chainid 1')
     ## Get all distance arrays
 
 

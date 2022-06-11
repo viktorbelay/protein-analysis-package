@@ -14,6 +14,7 @@ import numpy as np
 import MDAnalysis as mda
 from MDAnalysis.analysis import pca
 import sys
+import pandas as pd
 
 
 
@@ -83,88 +84,139 @@ def pca_diagnostic(universe):
     pl.ylabel('PC2')
     pl.title('Trajectory PCA, first two PCs')
     
-def calc_com_distances(load):
+def calc_com_distances(load,target='bsite'):
     
+    # allowed arguments for target:
+        
+        # empty - will compute distance between helices which coordinate adenosine molecule
+        # bend - will compute distance between last helix in chain b and the botom helix with partly forms the adenosine binding site
+        # aend - will compute distance between last helix in chain a and the nearest helix in chain b
 
+    # com_chainA=md.compute_center_of_mass(load,select='(residue 2176 or residue 2177 or residue 2178 or residue 2179 or residue 2180 or residue 2181) and chainid 0')
 
-    com_chainA=md.compute_center_of_mass(load,select='(residue 2176 or residue 2177 or residue 2178 or residue 2179 or residue 2180 or residue 2181) and chainid 0')
-
-    com_chainB=md.compute_center_of_mass(load,select='(residue 2580 or residue 2581 or residue 2582 or residue 2583 or residue 2584 or residue 2585 or residue 2586) and chainid 1')
-    print('hi')
+    # com_chainB=md.compute_center_of_mass(load,select='(residue 2580 or residue 2581 or residue 2582 or residue 2583 or residue 2584 or residue 2585 or residue 2586) and chainid 1')
    # com_chainA=md.compute_center_of_mass(load,select='chainid 0')
 
    # com_chainB=md.compute_center_of_mass(load,select='chainid 1')
     ## Get all distance arrays
 
+    def calc_distance(chaina,chainb):
+        com_chainA_x = []
+        com_chainA_y = []
+        com_chainA_z = []
 
-    com_chainA_x = []
-    com_chainA_y = []
-    com_chainA_z = []
+        for i in list(range(0,len(com_chainA))):
 
-    for i in list(range(0,len(com_chainA))):
-
-        com_chainA_x.append(com_chainA[i][0])
-        com_chainA_y.append(com_chainA[i][1])
+            com_chainA_x.append(com_chainA[i][0])
+            com_chainA_y.append(com_chainA[i][1])
         
-        com_chainA_z.append(com_chainA[i][2])
+            com_chainA_z.append(com_chainA[i][2])
         
         
-    com_chainA_x = np.array(com_chainA_x)
-    com_chainA_y = np.array(com_chainA_y)
-    com_chainA_z = np.array(com_chainA_z)
+        com_chainA_x = np.array(com_chainA_x)
+        com_chainA_y = np.array(com_chainA_y)
+        com_chainA_z = np.array(com_chainA_z)
 
 
 
         
         
-    com_chainB_x = []
-    com_chainB_y = []
-    com_chainB_z = []
+        com_chainB_x = []
+        com_chainB_y = []
+        com_chainB_z = []
 
-    for i in list(range(0,len(com_chainB))):
+        for i in list(range(0,len(com_chainB))):
 
-        com_chainB_x.append(com_chainB[i][0])
-        com_chainB_y.append(com_chainA[i][1])
+            com_chainB_x.append(com_chainB[i][0])
+            com_chainB_y.append(com_chainA[i][1])
         
-        com_chainB_z.append(com_chainB[i][2])
+            com_chainB_z.append(com_chainB[i][2])
         
         
-    com_chainB_x=np.array(com_chainB_x)
-    com_chainB_y=np.array(com_chainB_y)
-    com_chainB_z=np.array(com_chainB_z)
+        com_chainB_x=np.array(com_chainB_x)
+        com_chainB_y=np.array(com_chainB_y)
+        com_chainB_z=np.array(com_chainB_z)
         
-    distance = np.sqrt(
+        distance = np.sqrt(
         
-        np.square(
+            np.square(
             
-            com_chainB_x - com_chainA_x
+                com_chainB_x - com_chainA_x
             
             
-          ) + np.square(
+            ) + np.square(
               
-              com_chainB_y - com_chainA_y
+                com_chainB_y - com_chainA_y
                         
-                        ) + np.square(
+                            ) + np.square(
                             
-                            com_chainB_z - com_chainA_z
+                                com_chainB_z - com_chainA_z
                             
-                            )
-        )
-                            
-                            
-    contact = md.compute_contacts(load,contacts=[[265,343]])
+                                )
+                                )
+        return distance
+                                    
+    if target == 'bsite':
+        com_chainA=md.compute_center_of_mass(load,select='(residue 2176 or residue 2177 or residue 2178 or residue 2179 or residue 2180 or residue 2181) and chainid 0')
 
-    contacts=[]
-    for i in list(range(0,len(contact[0]))):
-    
-        contacts.append(contact[0][i][0])
-    
-    
-    np.array(contacts)
-    
-    time = [x * 1000/1000 for x in range(len(contacts))]
-                   
-    return [distance,contacts,time]
+        com_chainB=md.compute_center_of_mass(load,select='(residue 2580 or residue 2581 or residue 2582 or residue 2583 or residue 2584 or residue 2585 or residue 2586) and chainid 1')
+        
+        contact = md.compute_contacts(load,contacts=[[265,343]])
+
+        contacts=[]
+        for i in list(range(0,len(contact[0]))):
+        
+            contacts.append(contact[0][i][0])
+        
+        
+        np.array(contacts)
+        
+        time = [x * 1000/1000 for x in range(len(contacts))]
+                       
+        return [calc_distance(com_chainA,com_chainB),contacts,time]
+        
+        
+    elif target == 'bend':
+        
+        com_chainA=md.compute_center_of_mass(load,select='(residue 2176 or residue 2177 or residue 2178 or residue 2179 or residue 2180 or residue 2181) and chainid 0')
+
+        com_chainB=md.compute_center_of_mass(load,select='(residue 2550 or residue 2551 or residue 2552 or residue 2554 or residue 2555 or residue 2556 or residue 2557 or residue 2558 or residue 2559) and chainid 1')
+        
+        contact = md.compute_contacts(load,contacts=[[265,343]])
+
+        contacts=[]
+        for i in list(range(0,len(contact[0]))):
+        
+            contacts.append(contact[0][i][0])
+        
+        
+        np.array(contacts)
+        
+        time = [x * 1000/1000 for x in range(len(contacts))]
+                       
+        return [calc_distance(com_chainA,com_chainB),contacts,time]
+        
+    elif target == 'aend':
+        
+        com_chainA=md.compute_center_of_mass(load,select='(residue 2197 or residue 2198 or residue 2199 or residue 2200 or residue 2201 or residue 2202 or residue 2203 or residue 2204 or residue 2205 or residue 2206 or residue 2207) and chainid 0')
+
+        com_chainB=md.compute_center_of_mass(load,select='(residue 2580 or residue 2581 or residue 2582 or residue 2583 or residue 2584 or residue 2585 or residue 2586) and chainid 1')        
+        
+        contact = md.compute_contacts(load,contacts=[[265,343]])
+
+        contacts=[]
+        for i in list(range(0,len(contact[0]))):
+        
+            contacts.append(contact[0][i][0])
+        
+        
+        np.array(contacts)
+        
+        time = [x * 1000/1000 for x in range(len(contacts))]
+                       
+        return [calc_distance(com_chainA,com_chainB),contacts,time]
+    else: 
+        return 'Error: Please enter a valid target.'
 
 
         

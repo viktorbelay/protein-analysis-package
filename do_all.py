@@ -229,5 +229,25 @@ def lig_rmsd(load,lig_string):
     
     return [rmsd,time]
 
+
+def stats_a(data):
+    
+    # Purpose of function: calculate mean + standard deviation for whatever data is inputted
+    # inputs: data. This is a nested array of arrays. Each array is the dataset meant to be analyzed
+    # Outputs: array containing mean and std for each array in data
+    
+    means = []
+    stds = []
+    
+    for i in list(range(0,len(data))):
+        
+        means.append(np.mean(data[i]))
+        
+        stds.append(np.std(data[i]))
+        
+    np.array(means)
+    np.array(stds)
+    
+    return [means,stds]
     
 

@@ -15,7 +15,7 @@ import MDAnalysis as mda
 from MDAnalysis.analysis import pca
 import sys
 import pandas as pd
-
+import seaborn as sns
 
 
 def load(topology_path,topology_name,trajectory_path,trajectory_name):
@@ -58,31 +58,53 @@ def rmsf_all_protein(load):
 
 
 
-def pca_diagnostic(universe):
+def pca_diagnostic(universe,first=True):
     
     ### Function purpose : will write later )
     
-    
-    pc = pca.PCA(universe, select='backbone',
-             align=True, mean=None,
-             n_components=None).run()
-    
-    backbone=universe.select_atoms('backbone')
-    
-    transformed = pc.transform(backbone, n_components=5)
-    transformed.shape
-    
-    df = pd.DataFrame(transformed,
-                  columns=['PC{}'.format(i+1) for i in range(5)])
-    df['Time (ps)'] = df.index * universe.trajectory.dt * 21.5
-    df.head()
-    
-    
-    pl.scatter(df['PC1'],df['PC2'],c=df['Time (ps)'])
-    pl.colorbar().set_label('time (ns)')
-    pl.xlabel('PC1')
-    pl.ylabel('PC2')
-    pl.title('Trajectory PCA, first two PCs')
+    if first == True:
+        pc = pca.PCA(universe, select='backbone',
+                 align=True, mean=None,
+                 n_components=None).run()
+        
+        backbone=universe.select_atoms('backbone')
+        
+        transformed = pc.transform(backbone, n_components=5)
+        transformed.shape
+        
+        df = pd.DataFrame(transformed,
+                      columns=['PC{}'.format(i+1) for i in range(5)])
+        df['Time (ps)'] = df.index * universe.trajectory.dt * 21.5
+        df.head()
+        
+        
+        pl.scatter(df['PC1'],df['PC2'],c=df['Time (ps)'])
+        pl.colorbar().set_label('time (ns)')
+        pl.xlabel('PC1')
+        pl.ylabel('PC2')
+        pl.title('Trajectory PCA, first two PCs')
+        
+    else:
+        
+        pc = pca.PCA(universe, select='backbone',
+                 align=True, mean=None,
+                 n_components=None).run()
+        
+        backbone=universe.select_atoms('backbone')
+        
+        transformed = pc.transform(backbone, n_components=5)
+        transformed.shape
+        
+        df = pd.DataFrame(transformed,
+                      columns=['PC{}'.format(i+1) for i in range(5)])
+        df['Time (ps)'] = df.index * universe.trajectory.dt * 21.5
+        df.head()
+        
+        
+        g = sns.PairGrid(df, hue='Time (ps)',
+                 palette=sns.color_palette('Oranges_d',
+                                           n_colors=len(df)))
+        g.map(pl.scatter, marker='.')
     
 def calc_com_distances(load,target='bsite'):
     

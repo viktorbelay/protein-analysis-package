@@ -8,10 +8,8 @@ Created on Thu Aug 18 10:04:20 2022
 
 Parameters:
     
-    Location: accepts 'local' or 'lilac', local being your local machine and lilac being the MSKCC HPC 
-    project_id: accepts 'all' or any integer greater than 0. This determines how many trajectories get merged.
-    count: total number of trajectories to be merged
-    yaml_path: path to the yaml containing path to trajectories
+traj: path to trajectory
+topo: path to related topology
     
 """
 
@@ -30,10 +28,10 @@ def strip(traj,topology):
     os.chdir(ogdir)
 
     a_traj_protein.save_dcd('joined_stripped.dcd')
-    a_topo_protein.save_pdb('joined_stripped.pdb')
+    a_topo_protein.save_pdb('joined_sctripped.pdb')
 
     print(a_traj,'stripped of waters, ions, and ligand saved as',a_traj_protein,'filename joined_stripped.dcd')
-    print(a_topo,'stripped of waters, ions, and ligand saved as',a_topo_protein,'filename joined_stripped.dcd')
+    print(a_topo,'stripped of waters, ions, and ligand saved as',a_topo_protein,'filename joined_stripped.pdb')
 
 if __name__=='__main__':
 

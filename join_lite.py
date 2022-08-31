@@ -22,18 +22,12 @@ def join_lite(working_dir,stride_value=1):
     os.chdir(working_dir)
 
 
-    try:
 
-        for pdb in os.listdir(working_dir):
+    for pdb in os.listdir(working_dir):
 
-            if pdb.endswith('.pdb'):
+        if pdb.endswith('.pdb'):
 
-                pdb_path=pdb
-
-
-    except:
-
-        print('Topology in PDB format not detected.')
+            pdb_path=pdb
 
 
 

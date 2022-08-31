@@ -12,7 +12,6 @@ Parameters:
 """
 
 import mdtraj as md
-import yaml
 import os
 import sys
 

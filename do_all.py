@@ -367,7 +367,7 @@ def get_ligand_movement_analysis(universe,lig_name,atomic_selection,plot=False):
         fig=pl.figure()
         ax = pl.axes(projection='3d')
         p=ax.scatter3D(xcoord, ycoord, zcoord, c=c, cmap='Greens');
-        fig.colorbar(p)
+        cbar=fig.colorbar(p)
         pl.title('')
         cbar.set_label('time (ns)')
         pl.xlabel('x coordinate')

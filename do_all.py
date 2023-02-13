@@ -358,13 +358,13 @@ def get_ligand_movement_analysis(universe,lig_name,atomic_selection,plot=False):
         # Currently not written/broken
 
     if plot == False:
-        c=list(range(0,len(x[1])))
+        c=list(range(0,len(xcoord)))
         
         return [c,xcoord,ycoord,zcoord]
 
     else:
 
-        c=list(range(0,len(x[1])))
+        c=list(range(0,len(xcoord)))
 
 
         fig=pl.figure()

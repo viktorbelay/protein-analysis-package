@@ -346,9 +346,9 @@ def get_ligand_movement_analysis(universe,lig_name,atomic_selection,plot=False):
     if type(atomic_selection)==int:
 
         for ts in universe.trajectory:
-            xcoord.append(universe.select_atoms(mol)[atom_selection].position[0])
-            ycoord.append(universe.select_atoms(mol)[atom_selection].position[1])
-            zcoord.append(universe.select_atoms(mol)[atom_selection].position[2])
+            xcoord.append(universe.select_atoms(mol)[atomic_selection].position[0])
+            ycoord.append(universe.select_atoms(mol)[atomic_selection].position[1])
+            zcoord.append(universe.select_atoms(mol)[atomic_selection].position[2])
 
 
     

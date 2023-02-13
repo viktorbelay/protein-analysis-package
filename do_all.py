@@ -352,7 +352,7 @@ def get_ligand_movement_analysis(universe,lig_name,atomic_selection,plot=False):
 
 
     
-    elif type(atomic_selection)==list:
+   # elif type(atomic_selection)==list:
 
         # Need to do the same as above but find the center of mass of selected atoms
         # Currently not written/broken

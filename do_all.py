@@ -392,7 +392,7 @@ def get_ligand_movement_analysis(universe,lig_name,atomic_selection,plot=False):
         pl.xlabel('y coordinate')
         pl.ylabel('z coordinate')
         pl.title('y vs z coordinate of atomic selection over time')
-        cbar3.set_labe('time (ns)')
+        cbar3.set_label('time (ns)')
 
         fig4=pl.figure()
 

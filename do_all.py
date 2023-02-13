@@ -334,7 +334,7 @@ def get_ligand_angle(universe,lig_name,atom1,atom2,atom3,plot=False):
         pl.xlabel('Angle between selected angles (deg)')
 
 
-def get_ligand_movement_analysis(universe,lig_name,atomic_selection):
+def get_ligand_movement_analysis(universe,lig_name,atomic_selection,plot=False):
 
     xcoord=[]
     ycoord=[]
@@ -355,9 +355,63 @@ def get_ligand_movement_analysis(universe,lig_name,atomic_selection):
     elif type(atomic_selection)==list:
 
         # Need to do the same as above but find the center of mass of selected atoms
-
+        # Currently not written/broken
     else:
         break
+
+    if plot == False:
+        
+        return [xcoord,ycoord,zcoord]
+
+    else:
+
+
+        fig=pl.figure()
+        ax = pl.axes(projection='3d')
+        p=ax.scatter3D(xcoord, ycoord, zcoord, c=c, cmap='Greens');
+        fig.colorbar(p)
+        pl.title('')
+        cbar.set_label('time (ns)')
+        pl.xlabel('x coordinate')
+        pl.ylabel('y coordinate')
+        ax.set_zlabel('z coordinate')
+        pl.title('xyz coordinates of atomic selection over time')
+
+        fig2=pl.figure()
+
+        pp=pl.scatter(xcoord,ycoord,c=c,cmap='Greens')
+        cbar2=pl.colorbar(pp)
+
+        pl.xlabel('x coordinate')
+        pl.ylabel('y coordinate')
+        pl.title('x vs y coordinate of atomic selection over time')
+        cbar2.set_label('time (ns)')
+
+        fig3=pl.figure()
+
+        pp2=pl.scatter(ycoord,zcoord,c=c,cmap='Greens')
+        cbar3=pl.colorbar(pp2)
+        pl.xlabel('y coordinate')
+        pl.ylabel('z coordinate')
+        pl.title('y vs z coordinate of atomic selection over time')
+        cbar3.set_labe('time (ns)')
+
+        fig4=pl.figure()
+
+        pp3=pl.scatter(xcoord,zcoord,c=c,cmap='Greens')
+        cbar4=pl.colorbar(pp3)
+        pl.xlabel('x coordinate')
+        pl.ylabel('z coordinate')
+        pl.title('x vs z coordinate of atomic selection over time')
+        cbar4.set_label('time (ns)')
+
+
+
+
+
+
+
+
 
 
 

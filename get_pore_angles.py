@@ -12,7 +12,7 @@
 
 # Version: 1.0.0
 
-# Funtionalty:
+# Functionalty:
     
     # Inputs:
         # Required: path to topology

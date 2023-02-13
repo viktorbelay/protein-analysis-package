@@ -273,3 +273,99 @@ def stats_a(data):
     return [means,stds]
     
 
+
+def get_atomic_numbers(universe,lig_name):
+
+    # Inputs: 
+    # 1. MDAnalysis universe
+    # 2. Name of a ligand in the atomic model
+
+    # Ouputs:
+    # 1. A printed list of all atoms in the specified molecule + the atoms' indices in MDAnalysis
+
+    atom_selection='resname '+lig_name
+
+    for i in list(range(0,len(atp1[1].select_atoms(atom_selection)))):
+    
+        print(universe.select_atoms(atom_selection)[i])
+        print(i)
+
+
+def get_ligand_angle(universe,lig_name,atom1,atom2,atom3,plot=False):
+
+    atom_selection='resname '+lig_name
+
+    def get_atp_angle(universe,atom1,atom2,atom3):
+    
+        a=universe.select_atoms(atom_selection)[atom1].position
+        b=universe.select_atoms(atom_selection)[atom2].position
+        c=universe.select_atoms(atom_selection)[atom3].position
+    
+        ab=a-b
+        bc=c-b
+    
+        angle = np.arccos((np.dot(ab,bc))/(norm(ab)*norm(bc)))
+        angle1=np.rad2deg(angle)
+    
+        return angle1
+
+    #t = []
+    
+    #for ts in universe.trajectory:
+     #   t.append(u.trajectory.time)
+        
+    #real_t = list(range(0,len(t)))
+    #real_t = np.array(real_t)
+    
+    angle=[]
+
+    for ts in universe.trajectory:
+        
+        angle.append(get_atp_angle(universe,atom1,atom2,atom3))
+
+
+    if plot == False:
+        
+        return angle
+
+    else:
+
+        sns.histplot(angle,bins=20,kde=True)
+        pl.xlabel('Angle between selected angles (deg)')
+
+
+def get_ligand_movement_analysis(universe,lig_name,atomic_selection):
+
+    xcoord=[]
+    ycoord=[]
+    zcoord=[]
+
+    mol='resname '+lig_name
+
+
+    if type(atomic_selection)==int:
+
+        for ts in universe.trajectory:
+            xcoord.append(universe.select_atoms(mol)[atom_selection].position[0])
+            ycoord.append(universe.select_atoms(mol)[atom_selection].position[1])
+            zcoord.append(universe.select_atoms(mol)[atom_selection].position[2])
+
+
+    
+    elif type(atomic_selection)==list:
+
+        # Need to do the same as above but find the center of mass of selected atoms
+
+    else:
+        break
+
+
+
+
+
+
+
+
+
+
+

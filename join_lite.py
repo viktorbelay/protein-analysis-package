@@ -7,6 +7,8 @@ Created on Thu Aug 18 10:04:20 2022
 
 
 Parameters:
+
+NOTE: add a feature to convert to XTC on the fly
  
     
 """

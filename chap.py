@@ -7,7 +7,7 @@
 # Author: Viktor Belay 
 # Creation date: 02/06/2022
 
-# Purpose of script: Save CHAP data as numpy arrays and plot things in a pretty way :3
+# Purpose of script: Save CHAP data as numpy arrays and plot things in a pretty way 
 # Also, gets output files
 
 # Version: 0.1.0

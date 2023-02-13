@@ -363,10 +363,7 @@ def get_ligand_movement_analysis(universe,lig_name,atomic_selection,plot=False):
         return [c,xcoord,ycoord,zcoord]
 
     else:
-
-        c=list(range(0,len(xcoord)))
-
-
+        c=list(range(0,len(ycoord)))
         fig=pl.figure()
         ax = pl.axes(projection='3d')
         p=ax.scatter3D(xcoord, ycoord, zcoord, c=c, cmap='Greens');

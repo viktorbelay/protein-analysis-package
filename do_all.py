@@ -304,7 +304,7 @@ def get_ligand_angle(universe,lig_name,atom1,atom2,atom3,plot=False):
         ab=a-b
         bc=c-b
     
-        angle = np.arccos((np.dot(ab,bc))/(norm(ab)*norm(bc)))
+        angle = np.arccos((np.dot(ab,bc))/(np.norm(ab)*np.norm(bc)))
         angle1=np.rad2deg(angle)
     
         return angle1

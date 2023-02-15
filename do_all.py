@@ -332,7 +332,7 @@ def get_ligand_angle(universe,lig_name,atom1,atom2,atom3,plot=False):
     else:
 
         sns.histplot(angle,bins=20,kde=True)
-        pl.xlabel('Angle between selected angles (deg)')
+        pl.xlabel('Angle between selected atoms (deg)')
 
 
 def get_ligand_movement_analysis(universe,lig_name,atomic_selection,plot=False):

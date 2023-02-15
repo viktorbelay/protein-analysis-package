@@ -285,7 +285,7 @@ def get_atomic_numbers(universe,lig_name):
 
     atom_selection='resname '+lig_name
 
-    for i in list(range(0,len(atp1[1].select_atoms(atom_selection)))):
+    for i in list(range(0,len(universe.select_atoms(atom_selection)))):
     
         print(universe.select_atoms(atom_selection)[i])
         print(i)

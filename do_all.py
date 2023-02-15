@@ -16,6 +16,7 @@ from MDAnalysis.analysis import pca
 import sys
 import pandas as pd
 import seaborn as sns
+from numpy.linalg import norm
 
 
 def load(topology_path,topology_name,trajectory_path,trajectory_name):

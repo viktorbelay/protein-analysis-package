@@ -36,12 +36,15 @@ def join_lite(working_dir,stride_value=1,save_xtc=False):
     for dcd in os.listdir(working_dir):
 
         if dcd.endswith('.dcd'):
-
-            trajs.append(md.load(dcd,top=pdb_path,stride=stride_value))
-
             print('loaded:')
 
-            md.load(dcd,top=pdb_path,stride=stride_value)
+            a=md.load(dcd,top=pdb_path,stride=stride_value)
+
+            a
+
+            trajs.append(a)
+
+
 
 
     cat_traj=md.join(trajs)

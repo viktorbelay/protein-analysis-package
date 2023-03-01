@@ -17,7 +17,7 @@ import mdtraj as md
 import os
 import sys
 
-def join_lite(working_dir,stride_value=1,save_xtc=False):
+def join_lite(working_dir,stride_value=1,save_xtc='no'):
 
     trajs = []
 
@@ -44,13 +44,13 @@ def join_lite(working_dir,stride_value=1,save_xtc=False):
     trajs
     cat_traj=md.join(trajs)
 
-    if save_xtc==False:
+    if save_xtc=='no':
 
         cat_traj.save_dcd(working_dir+'/joined.dcd')
 
         print(cat_traj,'has been saved as joined.dcd')
 
-    elif save_xtc==True:
+    elif save_xtc=='yes':
 
         cat_traj.save_xtc(working_dir+'/joined.xtc')
         print(cat_traj,'has been saved as joined.xtc')

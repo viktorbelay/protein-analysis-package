@@ -41,7 +41,7 @@ def join_lite(working_dir,stride_value=1,save_xtc='no'):
 
 
 
-    trajs
+    print(trajs)
     cat_traj=md.join(trajs)
 
     if save_xtc=='no':

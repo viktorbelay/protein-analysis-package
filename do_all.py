@@ -61,7 +61,7 @@ def rmsf_all_protein(load):
 
 def pca_diagnostic(universe,first=True):
     
-    ### Function purpose : will write later )
+    ### Function purpose : will write later 
     
     if first == True:
         pc = pca.PCA(universe, select='backbone',
@@ -78,12 +78,12 @@ def pca_diagnostic(universe,first=True):
         df['Time (ps)'] = df.index * universe.trajectory.dt * 21.5
         df.head()
         
-        
-        pl.scatter(df['PC1'],df['PC2'],c=df['Time (ps)'])
-        pl.colorbar().set_label('time (ns)')
-        pl.xlabel('PC1')
-        pl.ylabel('PC2')
-        pl.title('Trajectory PCA, first two PCs')
+        return df
+        #pl.scatter(df['PC1'],df['PC2'],c=df['Time (ps)'])
+        #pl.colorbar().set_label('time (ns)')
+        #pl.xlabel('PC1')
+        #pl.ylabel('PC2')
+        #pl.title('Trajectory PCA, first two PCs')
         
     else:
         

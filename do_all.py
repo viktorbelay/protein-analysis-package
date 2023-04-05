@@ -406,10 +406,72 @@ def get_ligand_movement_analysis(universe,lig_name,atomic_selection,plot=False):
 
 
 
+def get_atomic_contact(traj,atom1,atom2,cutoff=3,plot=True):
+    
+    # Notes:
+    # atom1 and atom2 must be the index of the atom specified. Can get this with the da method 'get atomic numbers'
+    # atom1 and atom2 must be integers
+    selection_1=traj.topology.select('index '+str(atom1))
+    selection_2=traj.topology.select('index '+str(atom2))
+    
+    atom1_info=traj.topology.atom(selection_1[0])
+    atom2_info=traj.topology.atom(selection_2[0])
+    
+    contact=md.compute_distances(traj,[[atom1,atom2]],periodic=True)*10
+    
+    contacts = contact[contact<=cutoff]
+    
+    occupancy = (len(contacts)/len(contact)) * 100
+    
+    
+    
+    if plot == True:
+        
+        sb.histplot(contact,legend=False,kde=True,alpha=0.2)
+        
+        pl.title('Distribution of distances between atom '+ f'{atom1_info.name}'+
+                 
+                 
+                 ' of residue '+f'{atom1_info.residue}'+' and atom '
+                 
+                 
+                +  f'{atom2_info.name}' + ' of residue ' + f'{atom2_info.residue}',fontsize=7
+                
+                
+                )
+        
+        print('Atom '+f'{atom1_info.name}'+' of residue '+f'{atom1_info.residue}'+
+              
+              ' forms an interaction with ' 
+             
+             + f'{atom2_info.name}' + ' of residue ' + f'{atom2_info.residue}' + ' with a distance cutoff of ' + 
+              f'{cutoff}' + 'Å ' + f'{occupancy}' + '% of the time during the ' + f'{len(contact)}' + 
+              
+              ' ns simulation ' 
+             
+            
+             )
+        
+        return [occupancy,contact]
+    
+    else:
+        
+        print('Atom '+f'{atom1_info.name}'+' of residue '+f'{atom1_info.residue}'+
+              
+              ' forms an interaction with ' 
+             
+             + f'{atom2_info.name}' + ' of residue ' + f'{atom2_info.residue}' + ' with a distance cutoff of ' + 
+              f'{cutoff}' + 'Å ' + f'{occupancy}' + '% of the time during the ' + f'{len(contact)}' + 
+              
+              ' ns simulation ' 
+             
+            
+             )
+        
+        return [occupancy,contact]
+        
 
-
-
-
+        
 
 
 

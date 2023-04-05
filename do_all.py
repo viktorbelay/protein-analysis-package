@@ -275,7 +275,7 @@ def stats_a(data):
     
 
 
-def get_atomic_numbers(universe,lig_name):
+def get_atomic_numbers(universe,atom_selection):
 
     # Inputs: 
     # 1. MDAnalysis universe
@@ -283,8 +283,7 @@ def get_atomic_numbers(universe,lig_name):
 
     # Ouputs:
     # 1. A printed list of all atoms in the specified molecule + the atoms' indices in MDAnalysis
-
-    atom_selection='resname '+lig_name
+    # NOTE: As far as I can tell, numbering is exactly the same independent of analysis package used. 04/04/23
 
     for i in list(range(0,len(universe.select_atoms(atom_selection)))):
     

@@ -1,6 +1,6 @@
 import mdtraj as md
 #import os
-#import sys
+import sys
 
 
 def dcd_to_xtc(dcd_to_convert,topology_path):

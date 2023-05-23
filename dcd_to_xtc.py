@@ -5,7 +5,7 @@ import sys
 
 def dcd_to_xtc(dcd_to_convert,topology_path):
 
-	dcd_file=md.load_dcd(dcd_to_convert,top=topology_pathf)
+	dcd_file=md.load_dcd(dcd_to_convert,top=topology_path)
 
 	print(dcd_file,'has been loaded... converting to XTC')
 

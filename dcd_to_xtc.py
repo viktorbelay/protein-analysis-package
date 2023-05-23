@@ -9,7 +9,7 @@ def dcd_to_xtc(dcd_to_convert,topology_path):
 
 	print(dcd_file,'has been loaded... converting to XTC')
 
-	md.save_xtc('traj.xtc')
+	dcd_file.save_xtc('traj.xtc')
 
 	print(dcd_file,'has ben saved as traj.xtc')
 

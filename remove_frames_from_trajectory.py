@@ -10,6 +10,10 @@ def remove_frames_from_trajectory(input_file,topology, num_frames_to_remove, out
     # Get the total number of frames in the trajectory
     total_frames = traj.n_frames
 
+    print(traj,"with")
+    print(total_frames)
+    print('loaded. removing frames.....')
+
     # Determine the range of frames to keep
     start_frame = num_frames_to_remove
     end_frame = total_frames
@@ -19,6 +23,8 @@ def remove_frames_from_trajectory(input_file,topology, num_frames_to_remove, out
 
     # Save the resulting trajectory as a DCD file
     traj.save_dcd(output_file)
+
+    print(traj,'saved!')
 
 if __name__=='__main__':
 

@@ -17,6 +17,9 @@ import numpy as np
 from matplotlib import pyplot as pl
 
 def calc_com_distances(top_path,top_name,traj_path,traj_name):
+
+    # Write a description of what this function does
+    # Write a description of what each input is and what it should be
     
     load1=md.load(traj_path+traj_name,top=top_path+top_name)
     
@@ -121,4 +124,6 @@ pl.figure()
 pl.hist(dist1[1],alpha=1,bins=25)
 
 pl.hist(dist2[1],alpha=0.5,bins=25)
+
+# create a list of 100 numbers
 

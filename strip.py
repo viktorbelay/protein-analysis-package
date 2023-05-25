@@ -28,7 +28,7 @@ def strip(traj,topology):
     os.chdir(ogdir)
 
     a_traj_protein.save_dcd('joined_stripped.dcd')
-    a_topo_protein.save_pdb('joined_sctripped.pdb')
+    a_topo_protein.save_pdb('joined_stripped.pdb')
 
     print(a_traj,'stripped of waters, ions, and ligand saved as',a_traj_protein,'filename joined_stripped.dcd')
     print(a_topo,'stripped of waters, ions, and ligand saved as',a_topo_protein,'filename joined_stripped.pdb')

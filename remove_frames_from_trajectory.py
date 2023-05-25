@@ -5,7 +5,7 @@ import sys
 
 def remove_frames_from_trajectory(input_file,topology, num_frames_to_remove, output_file):
     # Load the trajectory using mdtraj
-    traj = md.load_dcd(input_file,top=toplogy)
+    traj = md.load_dcd(input_file,top=topology)
 
     # Get the total number of frames in the trajectory
     total_frames = traj.n_frames

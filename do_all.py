@@ -17,6 +17,7 @@ import sys
 import pandas as pd
 import seaborn as sns
 from numpy.linalg import norm
+import pymbar as pr
 
 
 def load(topology_path,topology_name,trajectory_path,trajectory_name):
@@ -472,6 +473,27 @@ def get_atomic_contact(traj,atom1,atom2,cutoff=3,plot=True):
         
 
         
+
+def resample(data,equil=True):
+
+    # Inputs:
+    # data - 1D array of timeseries data
+    # equil - T/F 
+
+    if equil:
+
+        t0, g, Neff_max = pr.timeseries.detect_equilibration(data) # compute indices of uncorrelated timeseries
+
+        data_equil = data[t0:]
+        indices = pr.timeseries.subsample_correlated_data(data_equil, g=g)
+        data_n = data_equil[indices]
+
+        return data_n
+
+    else:
+
+        pass # for now
+
 
 
 

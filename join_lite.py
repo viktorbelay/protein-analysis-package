@@ -42,7 +42,9 @@ def join_lite(working_dir,stride_value=1,n_frames_removed=0,save_xtc='no'):
 
             if n_frames_removed != 0:
 
-                trajs_fr.append(md.load(dcd[n_frames_removed:],top=pdb_path,stride=stride_value))
+                traj=md.load(dcd,top=pdb_path,stride=stride_value)
+
+                trajs_fr.append(traj[n_frames_removed:])
 
 
     print(trajs)
@@ -58,7 +60,7 @@ def join_lite(working_dir,stride_value=1,n_frames_removed=0,save_xtc='no'):
             print(cat_traj_fr,'has been saved as joined_fr.dcd')
 
         print(cat_traj,'has been saved as joined.dcd and ')
-        
+
     elif save_xtc=='yes':
 
         cat_traj.save_xtc(working_dir+'/joined.xtc')

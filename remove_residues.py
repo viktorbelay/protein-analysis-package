@@ -17,7 +17,7 @@ def remove_residues(top,traj,residue_start,residue_end=None):
 
         os.chdir(ogdir)
 
-        traj_slieced.save_xtc('joined_stripped_sliced.xtc')
+        traj_sliced.save_xtc('joined_stripped_sliced.xtc')
         topo_sliced.save_pdb('joined_stripped_sliced.pdb')
 
     else:

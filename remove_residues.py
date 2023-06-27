@@ -13,7 +13,7 @@ def remove_residues(top,traj,residue_start,residue_end=None):
     if residue_end==None:
 
         topo_sliced=loaded_top.atom_slice(loaded_top.topology.select('residue '+str(residue_start)))
-        traj_sliced=loaded_traj.atom_slice(loaded_traj.topology.select('residue '+str(esidue_start)))
+        traj_sliced=loaded_traj.atom_slice(loaded_traj.topology.select('residue '+str(residue_start)))
 
         os.chdir(ogdir)
 

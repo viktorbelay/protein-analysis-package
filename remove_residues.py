@@ -5,15 +5,15 @@ import mdtraj as md
 import os
 import sys
 
-def remove_residues(top,traj,residue_start,residue_end=None):
+def remove_residues(top,traj,residue_start,residue_end='none'):
 
     loaded_top=md.load(top)
     loaded_traj=md.load(traj,top=top)
 
-    if residue_end==None:
+    if residue_end=='none':
 
-        topo_sliced=loaded_top.atom_slice(loaded_top.topology.select('residue '+str(residue_start)))
-        traj_sliced=loaded_traj.atom_slice(loaded_traj.topology.select('residue '+str(residue_start)))
+        topo_sliced=loaded_top.atom_slice(loaded_top.topology.select('not '+'residue '+str(residue_start)))
+        traj_sliced=loaded_traj.atom_slice(loaded_traj.topology.select('not '+'residue '+str(residue_start)))
 
         os.chdir(ogdir)
 
@@ -22,8 +22,8 @@ def remove_residues(top,traj,residue_start,residue_end=None):
 
     else:
 
-        topo_sliced=loaded_top.atom_slice(loaded_top.topology.select('residue '+str(residue_start) + 'to '+str(residue_end)))
-        traj_sliced=loaded_traj.atom_slice(loaded_traj.topology.select('residue '+str(residue_start) + 'to '+str(residue_end)))
+        topo_sliced=loaded_top.atom_slice(loaded_top.topology.select('not '+ '('+'residue '+str(residue_start) + ' to '+str(residue_end)+')'))
+        traj_sliced=loaded_traj.atom_slice(loaded_traj.topology.select('not '+ '('+'residue '+str(residue_start) + ' to '+str(residue_end)+')'))
 
         os.chdir(ogdir)
 

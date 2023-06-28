@@ -5,12 +5,12 @@ import mdtraj as md
 import os
 import sys
 
-def remove_residues(top,traj,residue_start,residue_end='none'):
+def remove_residues(top,traj,residue_start,residue_end=None):
 
     loaded_top=md.load(top)
     loaded_traj=md.load(traj,top=top)
 
-    if residue_end=='none':
+    if residue_end==None:
 
         topo_sliced=loaded_top.atom_slice(loaded_top.topology.select('not '+'residue '+str(residue_start)))
         traj_sliced=loaded_traj.atom_slice(loaded_traj.topology.select('not '+'residue '+str(residue_start)))
@@ -31,11 +31,13 @@ def remove_residues(top,traj,residue_start,residue_end='none'):
         topo_sliced.save_pdb('joined_stripped_sliced.pdb')
 
 
+
+
 if __name__=='__main__':
 
         ogdir=os.getcwd()
 
-        remove_residues(sys.argv[1],sys.argv[2],sys.argv[3])
+        remove_residues(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
 
 
 

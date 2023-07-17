@@ -37,7 +37,7 @@ if __name__=='__main__':
 
     ogdir=os.getcwd()
 
-    strip(sys.argv[1],sys.argv[2],sys.argv[3])
+    strip(sys.argv[1],sys.argv[2])
 
 
 

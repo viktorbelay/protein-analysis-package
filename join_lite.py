@@ -47,9 +47,17 @@ def join_lite(working_dir,stride_value=1,n_frames_removed=0,save_xtc='no'):
                 trajs_fr.append(traj[n_frames_removed:])
 
 
-    print(trajs)
-    cat_traj=md.join(trajs)
-    cat_traj_fr=md.join(trajs_fr)
+    #print(trajs)
+    #cat_traj=md.join(trajs)
+
+    if n_frames_removed != 0:
+
+        cat_traj_fr=md.join(trajs_fr)
+
+    else: 
+
+        print(trajs)
+        cat_traj=md.join(trajs)
 
     if save_xtc=='no':
 
